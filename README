@@ -1,0 +1,124 @@
+This layer provides support for Rugged Board A5d2x
+==================================================
+
+For more information about the rugged board a5d2x product line see:
+https://www.ruggedboard.com/
+
+Linux, development & Open Source on rugged board:
+https://developer.ruggedboard.com/
+
+
+Sources
+=======
+- meta-rba5d2x
+URI: https://github.com/rugged-board/meta-rba5d2x.git
+Branch: sumo-rba5d2x
+
+
+Dependencies
+============
+This Layer depends on :
+- poky
+URI: https://github.com/rugged-board/poky.git
+Branch: sumo-rba5d2x
+
+- meta-openembedded
+URI: git://git.openembedded.org/meta-openembedded
+Branch: sumo
+
+Build procedure
+===============
+
+0/ Create a directory
+mkdir yocto-rba5d2x
+cd  yocto-rba5d2x
+
+1/ Create sources directory to place the sources
+mkdir sources
+cd sources
+
+2/ Clone meta-rba5d2x layer with the proper branch ready
+git clone https://github.com/rugged-board/meta-rba5d2x.git -b sumo-rba5d2x
+
+3/ Clone yocto/poky git repository with the proper branch ready
+git clone https://github.com/rugged-board/poky.git -b sumo-rba5d2x
+
+4/ Clone meta-openembedded git repository with the proper branch ready
+git clone git://git.openembedded.org/meta-openembedded -b sumo
+
+5/ come back from the sources directory to configure the build system and start the build process
+cd ..
+
+6/ Initialize build directory
+source sources/poky/oe-init-build-env
+
+7/ Edit local.conf to specify the target machine and build the image
+	i) For rugged board a5d2x(SDCARD)
+    		-> Change machine name to "rugged-board-a5d2x-sd1" in conf/local.conf as below 
+			MACHINE ?= "rugged-board-a5d2x-sd1"
+
+    			$ bitbake rb-sd-core-image-minimal
+
+	ii) for rugged board a5d2x(NOR)
+    		-> change machine name to "rugged-board-a5d2x" in conf/local.conf as below
+			MACHINE ?= "rugged-board-a5d2x"
+
+    			$ bitbake rb-nor-core-image-minimal
+
+
+Typical bitbake output for SD Flash:
+===================================
+Build Configuration:
+BB_VERSION           = "1.38.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "arm-poky-linux-musleabi"
+MACHINE              = "rugged-board-a5d2x-sd1"
+DISTRO               = "poky-tiny"
+DISTRO_VERSION       = "2.5.2"
+TUNE_FEATURES        = "arm armv7a vfp thumb neon callconvention-hard cortexa5"
+TARGET_FPU           = "hard"
+meta                 
+meta-poky            
+meta-yocto-bsp       = "sumo-rba5d2x:f18774081ea4896a567169d4e5e6291e1adf9ca9"
+meta-rba5d2x         = "HEAD:44e8e4be7c9352300cb8f305667891887c583700"
+meta-oe              
+meta-python          = "sumo:8760facba1bceb299b3613b8955621ddaa3d4c3f"
+
+Typical bitbake output for NOR Flash:
+====================================
+Build Configuration:
+BB_VERSION           = "1.38.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "arm-poky-linux-musleabi"
+MACHINE              = "rugged-board-a5d2x"
+DISTRO               = "poky-tiny"
+DISTRO_VERSION       = "2.5.2"
+TUNE_FEATURES        = "arm armv7a vfp thumb neon callconvention-hard cortexa5"
+TARGET_FPU           = "hard"
+meta                 
+meta-poky            
+meta-yocto-bsp       = "sumo-rba5d2x:f18774081ea4896a567169d4e5e6291e1adf9ca9"
+meta-rba5d2x         = "HEAD:44e8e4be7c9352300cb8f305667891887c583700"
+meta-oe              
+meta-python          = "sumo:8760facba1bceb299b3613b8955621ddaa3d4c3f"
+
+Contributing
+============
+rugged board a5d2x Forum:
+https://www.community.ruggedboard.com/forum/rb-a5d2x
+
+Maintainers:
+============
+Ganesh K <ganesh.k@phytec.in>
+Mahaboob Nazeer <nazeer.m@phytec.in>
+Prasanth K <prashanth.k@phytec.in>
+
+Known issues
+============
+This branch is under development and not fully tested. Some features may not work.
+
+QT5:
+====
+qt5 is not yet tested in this board and its under development.
